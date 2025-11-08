@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # Backend API
+  backend:
+    build: .
+    container_name: creative-copilot-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+    depends_on:
+      - ollama
+    volumes:
+      - ./campaigns:/app/campaigns
+      - ./data:/app/data
+      - ./logs:/app/logs
+    networks:
+      - copilot-network
+    command: python backend_main.py
+
+  # Ollama LLM Service
+  ollama:
+    image: ollama/ollama:latest
+    container_name: creative-copilot-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - copilot-network
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+
+  # Frontend UI
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: creative-copilot-frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - API_BASE_URL=http://backend:8000
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_HEADLESS=true
+    depends_on:
+      - backend
+    volumes:
+      - ./campaigns:/app/campaigns
+      - ./data:/app/data
+    networks:
+      - copilot-network
+    command: streamlit run frontend_app.py --server.port=8501 --server.address=0.0.0.0
+
+volumes:
+  ollama_data:
+
+networks:
+  copilot-network:
+    driver: bridge

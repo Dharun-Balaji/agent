@@ -1,0 +1,47 @@
+{
+  "brand_name": "Your Brand Name",
+  "voice": "friendly, professional, inspirational",
+  "tone": "conversational, accessible, engaging",
+  "values": [
+    "quality",
+    "innovation",
+    "customer-first",
+    "sustainability"
+  ],
+  "colors": [
+    "#0066cc",
+    "#ff6600",
+    "#333333",
+    "#ffffff"
+  ],
+  "fonts": [
+    "Inter",
+    "Georgia"
+  ],
+  "prohibited_topics": [
+    "politics",
+    "religion",
+    "violence",
+    "hate speech"
+  ],
+  "keywords": [
+    "quality",
+    "innovation",
+    "reliable",
+    "trustworthy"
+  ],
+  "company_description": "Your company mission and values",
+  "target_demographic": "Your target audience",
+  "content_guidelines": {
+    "max_length": 2000,
+    "min_readability_score": 70,
+    "required_cta": true,
+    "seo_focus": true
+  },
+  "compliance_requirements": {
+    "require_sources": true,
+    "require_disclaimers": true,
+    "plagiarism_threshold": 0.15,
+    "age_rating": "general_audience"
+  }
+}
